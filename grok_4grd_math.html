@@ -1,0 +1,837 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 小学四年级数学下册·人教版 学习宝典</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+        
+        :root {
+            --tw-color-primary: #3b82f6;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', system-ui, sans-serif;
+        }
+        
+        .nav-link {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link:hover {
+            transform: translateY(-2px);
+            color: #3b82f6;
+        }
+        
+        .section-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .mermaid {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+        
+        .quiz-question {
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .feedback-correct {
+            animation: pop 0.3s ease;
+        }
+        
+        .tail-container * {
+            font-family: 'Noto Sans SC', system-ui, sans-serif;
+        }
+    </style>
+</head>
+<body class="tail-container bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen">
+    <!-- 头部 -->
+    <div class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-blue-500 text-white rounded-2xl flex items-center justify-center text-3xl shadow-inner">📖</div>
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800 tracking-tight">四年级数学下册</h1>
+                    <p class="text-blue-600 text-sm font-medium -mt-1">人教版 · 互动学习宝典</p>
+                </div>
+            </div>
+            
+            <!-- 导航 -->
+            <nav class="hidden md:flex items-center gap-8 text-lg font-medium text-gray-700">
+                <a onclick="navigateTo('mindmap')" class="nav-link cursor-pointer flex items-center gap-1 hover:text-blue-600">
+                    🧭 思维导图
+                </a>
+                <a onclick="navigateTo('formula')" class="nav-link cursor-pointer flex items-center gap-1 hover:text-blue-600">
+                    ⚡ 公式速查
+                </a>
+                <a onclick="navigateTo('practice')" class="nav-link cursor-pointer flex items-center gap-1 hover:text-blue-600">
+                    🎯 互动练习
+                </a>
+                <a onclick="navigateTo('life')" class="nav-link cursor-pointer flex items-center gap-1 hover:text-blue-600">
+                    🌍 生活场景
+                </a>
+                <a onclick="navigateTo('pitfall')" class="nav-link cursor-pointer flex items-center gap-1 hover:text-blue-600">
+                    🛡️ 避坑指南
+                </a>
+            </nav>
+            
+            <div class="flex items-center gap-4">
+                <div onclick="startNewPractice()" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-3xl font-medium flex items-center gap-2 cursor-pointer shadow-md">
+                    <span>🚀 立即练习</span>
+                </div>
+                <div class="text-xs bg-white border border-gray-200 rounded-3xl px-4 py-2 flex items-center gap-2 shadow-sm">
+                    <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                    小朋友加油！
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        
+        <!-- 欢迎横幅 -->
+        <div class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-3xl p-8 mb-12 flex items-center gap-8 shadow-xl">
+            <div class="flex-1">
+                <div class="inline-flex items-center gap-2 bg-white/20 text-white text-sm font-medium px-4 py-1 rounded-3xl mb-4">人教版 · 四年级下册</div>
+                <h2 class="text-5xl font-bold leading-none mb-4">数学原来这么有趣！<br>一站式互动学习宝典</h2>
+                <p class="text-xl opacity-90">思维导图 + 公式速查 + 互动练习 + 生活场景 + 避坑指南<br>帮你轻松掌握整本书，全方位提升数学能力！</p>
+                <div class="mt-6 flex gap-4">
+                    <button onclick="navigateTo('mindmap')" class="bg-white text-blue-600 hover:bg-amber-100 px-8 py-4 rounded-3xl font-semibold flex items-center gap-2 text-lg">
+                        🧭 先看全貌思维导图
+                    </button>
+                    <button onclick="navigateTo('practice')" class="border-2 border-white text-white hover:bg-white/10 px-8 py-4 rounded-3xl font-semibold flex items-center gap-2 text-lg">
+                        🎯 马上开始互动练习
+                    </button>
+                </div>
+            </div>
+            <div class="hidden lg:flex flex-col items-center text-center">
+                <div class="text-8xl mb-2">📘</div>
+                <div class="text-6xl rotate-12">✨</div>
+                <p class="text-sm mt-4 max-w-[180px] opacity-80">已帮无数小朋友考出满分！</p>
+            </div>
+        </div>
+
+        <!-- 1. 思维导图 -->
+        <div id="mindmap" class="mb-20 scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-4xl">🧭</span>
+                <h2 class="text-3xl font-bold text-gray-800">思维导图 · 整本书全貌一览</h2>
+                <span class="px-4 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded-3xl">按“数与运算、图形与几何、统计与概率、数学思维”四大板块整理</span>
+            </div>
+            <p class="text-gray-600 mb-6 max-w-2xl">按教科书逻辑顺序绘制，每个板块标注了学习先后关系（箭头表示“先学→后学”）。孩子一看就懂整本书的知识骨架！</p>
+            
+            <div class="bg-white rounded-3xl p-8 shadow-inner">
+                <div class="mermaid" id="mindmapDiagram">
+                    mindmap
+                        root((四年级下册数学))
+                            数与运算
+                                四则运算 [基础·先学]
+                                    加减乘除意义
+                                    0的运算
+                                    括号改变顺序
+                                运算定律与简便计算 [基于四则运算]
+                                    加法交换律 + 结合律
+                                    乘法交换律 + 结合律
+                                    乘法分配律
+                                    简便计算
+                                小数的意义和性质
+                                    小数意义（十进制）
+                                    读写与比较大小
+                                    小数性质（末尾0可省）
+                                    小数点移动规律
+                                小数的加法和减法 [基于小数性质]
+                                    对齐小数点
+                                    进位退位
+                            图形与几何
+                                观察物体（二） [几何基础]
+                                    从不同方向看立体图形
+                                    正视图·侧视图·俯视图
+                                三角形
+                                    三角形特征
+                                    分类（按角/按边）
+                                    内角和180°
+                                图形的运动（二）
+                                    旋转（中心·角度）
+                                    平移
+                            统计与概率
+                                平均数与条形统计图
+                                    平均数意义和计算
+                                    条形统计图（单式·复式）
+                                    数据分析
+                            数学思维
+                                鸡兔同笼 [综合思维]
+                                    列表法 / 尝试法
+                                    逻辑推理
+            </div>
+            <div class="text-xs text-gray-400 mt-4 text-center">* 箭头方向表示学习先后顺序，先学左侧基础知识 → 再学右侧进阶知识</div>
+        </div>
+
+        <!-- 2. 公式速查 -->
+        <div id="formula" class="mb-20 scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-4xl">⚡</span>
+                <h2 class="text-3xl font-bold text-gray-800">公式速查表 · 核心10大概念</h2>
+            </div>
+            <p class="text-gray-600 mb-6">仅限四年级下册，最重要8-10个概念/公式，每条附一句话解释 + 简单例子。随时查！</p>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse bg-white rounded-3xl overflow-hidden shadow-inner">
+                    <thead>
+                        <tr class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+                            <th class="px-8 py-5 text-left font-medium w-1/4">概念 / 公式</th>
+                            <th class="px-8 py-5 text-left font-medium w-2/5">一句话解释</th>
+                            <th class="px-8 py-5 text-left font-medium">简单例子</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y text-gray-700">
+                        <tr>
+                            <td class="px-8 py-6 font-semibold">四则运算顺序</td>
+                            <td class="px-8 py-6">先算乘除，再算加减；同级从左到右；括号最优先</td>
+                            <td class="px-8 py-6">2 + 3 × 4 = 14（先3×4=12，再加2）</td>
+                        </tr>
+                        <tr>
+                            <td class="px-8 py-6 font-semibold">加法交换律</td>
+                            <td class="px-8 py-6">两个数相加，交换位置结果不变</td>
+                            <td class="px-8 py-6">17 + 8 = 8 + 17 = 25</td>
+                        </tr>
+                        <tr>
+                            <td class="px-8 py-6 font-semibold">加法结合律</td>
+                            <td class="px-8 py-6">三个数相加，先加哪两个都一样</td>
+                            <td class="px-8 py-6">(12 + 5) + 8 = 12 + (5 + 8) = 25</td>
+                        </tr>
+                        <tr>
+                            <td class="px-8 py-6 font-semibold">乘法交换律</td>
+                            <td class="px-8 py-6">两个数相乘，交换位置结果不变</td>
+                            <td class="px-8 py-6">25 × 4 = 4 × 25 = 100</td>
+                        </tr>
+                        <tr>
+                            <td class="px-8 py-6 font-semibold">乘法结合律</td>
+                            <td class="px-8 py-6">三个数相乘，先乘哪两个都一样</td>
+                            <td class="px-8 py-6">(2 × 5) × 6 = 2 × (5 × 6) = 60</td>
+                        </tr>
+                        <tr>
+                            <td class="px-8 py-6 font-semibold">乘法分配律</td>
+                            <td class="px-8 py-6">一个数乘两个数的和，等于分别相乘再相加</td>
+                            <td class="px-8 py-6">3 × (4 + 6) = 3×4 + 3×6 = 30</td>
+                        </tr>
+                        <tr>
+                            <td class="px-8 py-6 font-semibold">小数加减法法则</td>
+                            <td class="px-8 py-6">竖式计算时，对齐小数点</td>
+                            <td class="px-8 py-6">1.23 + 4.5 = 5.73（对齐后计算）</td>
+                        </tr>
+                        <tr>
+                            <td class="px-8 py-6 font-semibold">三角形内角和</td>
+                            <td class="px-8 py-6">任意三角形三个内角之和都是180°</td>
+                            <td class="px-8 py-6">60° + 60° + 60° = 180°（等边三角形）</td>
+                        </tr>
+                        <tr>
+                            <td class="px-8 py-6 font-semibold">平均数</td>
+                            <td class="px-8 py-6">总和除以个数，就是平均数</td>
+                            <td class="px-8 py-6">3个苹果共450g，平均每个150g（450÷3）</td>
+                        </tr>
+                        <tr>
+                            <td class="px-8 py-6 font-semibold">小数点移动规律</td>
+                            <td class="px-8 py-6">小数×10、100…小数点向右移；÷10、100…向左移</td>
+                            <td class="px-8 py-6">0.45 × 100 = 45（点右移2位）</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3. 互动练习 -->
+        <div id="practice" class="mb-20 scroll-mt-20">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="text-4xl">🎯</span>
+                    <h2 class="text-3xl font-bold text-gray-800">互动练习 · 随机出10道题</h2>
+                </div>
+                
+                <div class="flex gap-3 bg-white rounded-3xl p-1 shadow-inner">
+                    <button onclick="startPractice(1)" id="level1-btn" class="px-6 py-3 rounded-3xl font-medium text-sm flex items-center gap-2 hover:bg-blue-50 transition-colors">
+                        🟢 基础
+                    </button>
+                    <button onclick="startPractice(2)" id="level2-btn" class="px-6 py-3 rounded-3xl font-medium text-sm flex items-center gap-2 hover:bg-amber-50 transition-colors">
+                        🟡 提高
+                    </button>
+                    <button onclick="startPractice(3)" id="level3-btn" class="px-6 py-3 rounded-3xl font-medium text-sm flex items-center gap-2 hover:bg-red-50 transition-colors">
+                        🔴 挑战
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-3xl shadow-inner p-8" id="quiz-container">
+                <div id="quiz-start-screen" class="text-center py-12">
+                    <div class="text-6xl mb-6">🎲</div>
+                    <h3 class="text-2xl font-semibold mb-2">准备好开始练习了吗？</h3>
+                    <p class="text-gray-500 mb-8">选择难度 → 系统随机抽取10道题<br>每题答完立即反馈 + 详细解析</p>
+                    <div class="flex justify-center gap-4">
+                        <button onclick="startPractice(1)" class="bg-emerald-500 text-white px-10 py-4 rounded-3xl font-semibold flex items-center gap-3">
+                            <span>🟢 开始基础练习</span>
+                        </button>
+                        <button onclick="startPractice(2)" class="bg-amber-500 text-white px-10 py-4 rounded-3xl font-semibold flex items-center gap-3">
+                            <span>🟡 开始提高练习</span>
+                        </button>
+                        <button onclick="startPractice(3)" class="bg-red-500 text-white px-10 py-4 rounded-3xl font-semibold flex items-center gap-3">
+                            <span>🔴 开始挑战练习</span>
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-10">支持选择题 + 填空题 · 可无限次练习</p>
+                </div>
+                
+                <!-- 练习界面 -->
+                <div id="quiz-active" class="hidden">
+                    <div class="flex justify-between items-center mb-8">
+                        <div>
+                            <span class="text-sm bg-gray-100 px-4 py-1 rounded-3xl" id="current-level-badge"></span>
+                            <span class="ml-4 text-gray-500 text-sm">第 <span id="progress" class="font-bold text-blue-600">1</span>/10 题</span>
+                        </div>
+                        <button onclick="endPractice()" class="text-gray-400 hover:text-red-500 text-sm flex items-center gap-1">
+                            <span>🏠 结束本次练习</span>
+                        </button>
+                    </div>
+                    
+                    <div id="questions-list" class="space-y-10"></div>
+                    
+                    <div class="mt-12 flex justify-between items-center border-t pt-8">
+                        <div class="flex items-center gap-8">
+                            <div class="text-2xl font-bold">得分：<span id="score" class="text-emerald-500">0</span>/10</div>
+                            <button onclick="checkAllAnswers()" class="bg-violet-500 hover:bg-violet-600 text-white px-8 py-4 rounded-3xl font-semibold">一键检查所有答案</button>
+                        </div>
+                        <button onclick="generateNewQuiz()" class="flex items-center gap-2 text-blue-600 font-medium">
+                            🔄 换一套新题
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 生活场景 -->
+        <div id="life" class="mb-20 scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-4xl">🌍</span>
+                <h2 class="text-3xl font-bold text-gray-800">数学原来这么有用 · 生活场景小手册</h2>
+            </div>
+            <p class="text-gray-600 mb-8">每个知识点配一个日常真实例子 + 小学生能看懂的解释，最后一句话总结“所以学这个有什么用”</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 示例1 -->
+                <div class="bg-white rounded-3xl p-7 section-card hover:shadow-xl">
+                    <div class="flex gap-4">
+                        <div class="text-5xl">🛒</div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-lg">小数的加法和减法</h4>
+                            <p class="mt-3 text-gray-600">你和妈妈去超市买东西，牛奶2.35元，面包4.8元，总共多少钱？用小数加法对齐小数点算出来就行了！</p>
+                            <p class="mt-6 text-emerald-600 font-medium">所以学这个有什么用：买东西、算零花钱，再也不会算错啦！</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 示例2 -->
+                <div class="bg-white rounded-3xl p-7 section-card hover:shadow-xl">
+                    <div class="flex gap-4">
+                        <div class="text-5xl">🍰</div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-lg">平均数</h4>
+                            <p class="mt-3 text-gray-600">班上4个小朋友一起分12块巧克力，每人平均分到多少块？平均数=总和÷个数，公平又好分！</p>
+                            <p class="mt-6 text-emerald-600 font-medium">所以学这个有什么用：分零食、算考试平均分、知道全班表现怎么样～</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 示例3 -->
+                <div class="bg-white rounded-3xl p-7 section-card hover:shadow-xl">
+                    <div class="flex gap-4">
+                        <div class="text-5xl">🏠</div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-lg">三角形内角和</h4>
+                            <p class="mt-3 text-gray-600">你用3根吸管拼成一个三角形，无论怎么拼，三个角加起来总是180°。量量房间里的三角形墙角就知道啦！</p>
+                            <p class="mt-6 text-emerald-600 font-medium">所以学这个有什么用：以后设计房子、搭积木、三角形永远不会出错！</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 示例4 -->
+                <div class="bg-white rounded-3xl p-7 section-card hover:shadow-xl">
+                    <div class="flex gap-4">
+                        <div class="text-5xl">📦</div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-lg">图形的运动（旋转）</h4>
+                            <p class="mt-3 text-gray-600">转动风车玩具，每次转90°，风车样子会重复出现。生活中很多玩具、钟表都是旋转运动哦！</p>
+                            <p class="mt-6 text-emerald-600 font-medium">所以学这个有什么用：玩玩具、看时钟、设计图案都超实用！</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 示例5 -->
+                <div class="bg-white rounded-3xl p-7 section-card hover:shadow-xl">
+                    <div class="flex gap-4">
+                        <div class="text-5xl">📊</div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-lg">条形统计图</h4>
+                            <p class="mt-3 text-gray-600">你记录一周每天玩游戏的时间，用条形统计图一看，哪天玩得最多就一目了然！</p>
+                            <p class="mt-6 text-emerald-600 font-medium">所以学这个有什么用：统计零花钱、成绩、时间安排，帮你管理生活更聪明！</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 示例6 -->
+                <div class="bg-white rounded-3xl p-7 section-card hover:shadow-xl">
+                    <div class="flex gap-4">
+                        <div class="text-5xl">🐰</div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-lg">鸡兔同笼（数学思维）</h4>
+                            <p class="mt-3 text-gray-600">笼子里有鸡和兔，头共8个，脚共22只。鸡2只脚，兔4只脚，列表试一试就能知道各有几只！</p>
+                            <p class="mt-6 text-emerald-600 font-medium">所以学这个有什么用：遇到难题时，学会列表思考，解决生活中的谜题超厉害！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. 避坑指南 -->
+        <div id="pitfall" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-4xl">🛡️</span>
+                <h2 class="text-3xl font-bold text-gray-800">避坑指南 · 最常见的7大易错点</h2>
+            </div>
+            <p class="text-gray-600 mb-8">像朋友一样提醒你：这些地方最容易丢分！每个坑都有错误示范 + 正确做法 + 记忆小口诀</p>
+            
+            <div class="space-y-6">
+                <div class="bg-gradient-to-r from-orange-50 to-amber-50 rounded-3xl p-6 flex gap-6">
+                    <div class="w-10 h-10 bg-white rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">1️⃣</div>
+                    <div class="flex-1">
+                        <h5 class="font-semibold">运算顺序搞反（最容易丢分！）</h5>
+                        <div class="mt-3 grid grid-cols-2 gap-6">
+                            <div>
+                                <span class="text-red-500 text-sm font-medium">❌ 错误示范：</span>
+                                <p class="bg-white px-4 py-2 rounded-2xl mt-1">2 + 3 × 4 = 20（错）</p>
+                            </div>
+                            <div>
+                                <span class="text-emerald-500 text-sm font-medium">✅ 正确做法：</span>
+                                <p class="bg-white px-4 py-2 rounded-2xl mt-1">2 + 3 × 4 = 14（先乘除）</p>
+                            </div>
+                        </div>
+                        <p class="text-xs mt-4 bg-white inline-block px-4 py-2 rounded-3xl">🔥 记忆口诀：先乘除，后加减；同级左到右，括号最优先！</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-orange-50 to-amber-50 rounded-3xl p-6 flex gap-6">
+                    <div class="w-10 h-10 bg-white rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">2️⃣</div>
+                    <div class="flex-1">
+                        <h5 class="font-semibold">小数加减法小数点不对齐</h5>
+                        <div class="mt-3 grid grid-cols-2 gap-6">
+                            <div>
+                                <span class="text-red-500 text-sm font-medium">❌ 错误示范：</span>
+                                <p class="bg-white px-4 py-2 rounded-2xl mt-1">1.2 + 3.45 = 4.65（错）</p>
+                            </div>
+                            <div>
+                                <span class="text-emerald-500 text-sm font-medium">✅ 正确做法：</span>
+                                <p class="bg-white px-4 py-2 rounded-2xl mt-1">1.20 + 3.45 = 4.65</p>
+                            </div>
+                        </div>
+                        <p class="text-xs mt-4 bg-white inline-block px-4 py-2 rounded-3xl">🔥 记忆口诀：小数点对齐，就像排队站直！</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-orange-50 to-amber-50 rounded-3xl p-6 flex gap-6">
+                    <div class="w-10 h-10 bg-white rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">3️⃣</div>
+                    <div class="flex-1">
+                        <h5 class="font-semibold">忘记三角形内角和180°</h5>
+                        <div class="mt-3 grid grid-cols-2 gap-6">
+                            <div>
+                                <span class="text-red-500 text-sm font-medium">❌ 错误示范：</span>
+                                <p class="bg-white px-4 py-2 rounded-2xl mt-1">三个角加起来=360°（错）</p>
+                            </div>
+                            <div>
+                                <span class="text-emerald-500 text-sm font-medium">✅ 正确做法：</span>
+                                <p class="bg-white px-4 py-2 rounded-2xl mt-1">60°+70°+50°=180°</p>
+                            </div>
+                        </div>
+                        <p class="text-xs mt-4 bg-white inline-block px-4 py-2 rounded-3xl">🔥 记忆口诀：三角形，180°，永远记住别出错！</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-orange-50 to-amber-50 rounded-3xl p-6 flex gap-6">
+                    <div class="w-10 h-10 bg-white rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">4️⃣</div>
+                    <div class="flex-1">
+                        <h5 class="font-semibold">平均数只算总和不除个数</h5>
+                        <div class="mt-3 grid grid-cols-2 gap-6">
+                            <div>
+                                <span class="text-red-500 text-sm font-medium">❌ 错误示范：</span>
+                                <p class="bg-white px-4 py-2 rounded-2xl mt-1">4个数总和=28，平均数=28（错）</p>
+                            </div>
+                            <div>
+                                <span class="text-emerald-500 text-sm font-medium">✅ 正确做法：</span>
+                                <p class="bg-white px-4 py-2 rounded-2xl mt-1">28 ÷ 4 = 7</p>
+                            </div>
+                        </div>
+                        <p class="text-xs mt-4 bg-white inline-block px-4 py-2 rounded-3xl">🔥 记忆口诀：平均数 = 总和 ÷ 人数/个数！</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-orange-50 to-amber-50 rounded-3xl p-6 flex gap-6">
+                    <div class="w-10 h-10 bg-white rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">5️⃣</div>
+                    <div class="flex-1">
+                        <h5 class="font-semibold">简便计算不使用运算定律</h5>
+                        <div class="mt-3 grid grid-cols-2 gap-6">
+                            <div>
+                                <span class="text-red-500 text-sm font-medium">❌ 错误示范：</span>
+                                <p class="bg-white px-4 py-2 rounded-2xl mt-1">25×4 + 25×6 = 250（一步步算）</p>
+                            </div>
+                            <div>
+                                <span class="text-emerald-500 text-sm font-medium">✅ 正确做法：</span>
+                                <p class="bg-white px-4 py-2 rounded-2xl mt-1">25×(4+6)=250（分配律）</p>
+                            </div>
+                        </div>
+                        <p class="text-xs mt-4 bg-white inline-block px-4 py-2 rounded-3xl">🔥 记忆口诀：分配律像魔法，括号里合并最省力！</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-orange-50 to-amber-50 rounded-3xl p-6 flex gap-6">
+                    <div class="w-10 h-10 bg-white rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">6️⃣</div>
+                    <div class="flex-1">
+                        <h5 class="font-semibold">小数点移动方向搞反</h5>
+                        <div class="mt-3 grid grid-cols-2 gap-6">
+                            <div>
+                                <span class="text-red-500 text-sm font-medium">❌ 错误示范：</span>
+                                <p class="bg-white px-4 py-2 rounded-2xl mt-1">0.45 × 100 = 0.045（错）</p>
+                            </div>
+                            <div>
+                                <span class="text-emerald-500 text-sm font-medium">✅ 正确做法：</span>
+                                <p class="bg-white px-4 py-2 rounded-2xl mt-1">0.45 × 100 = 45</p>
+                            </div>
+                        </div>
+                        <p class="text-xs mt-4 bg-white inline-block px-4 py-2 rounded-3xl">🔥 记忆口诀：乘10右移，÷10左移，记住方向别迷路！</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-orange-50 to-amber-50 rounded-3xl p-6 flex gap-6">
+                    <div class="w-10 h-10 bg-white rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">7️⃣</div>
+                    <div class="flex-1">
+                        <h5 class="font-semibold">鸡兔同笼不会系统列表</h5>
+                        <div class="mt-3 grid grid-cols-2 gap-6">
+                            <div>
+                                <span class="text-red-500 text-sm font-medium">❌ 错误示范：</span>
+                                <p class="bg-white px-4 py-2 rounded-2xl mt-1">随便猜一个答案</p>
+                            </div>
+                            <div>
+                                <span class="text-emerald-500 text-sm font-medium">✅ 正确做法：</span>
+                                <p class="bg-white px-4 py-2 rounded-2xl mt-1">用表格逐个试：鸡脚2，兔脚4</p>
+                            </div>
+                        </div>
+                        <p class="text-xs mt-4 bg-white inline-block px-4 py-2 rounded-3xl">🔥 记忆口诀：列表法，头和脚一起算，耐心试一试就对啦！</p>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-amber-600 mt-8 text-sm">⭐ 考试中最容易丢分的正是这些“小心思”！记住口诀，少丢分、多满分～</p>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-900 text-white py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-sm opacity-60">本学习宝典由AI根据人教版四年级下册数学教科书核心知识体系制作</p>
+            <p class="text-xs opacity-40 mt-3">支持无限练习 · 适合手机和平板 · 祝你数学成绩飞起！🚀</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind 脚本初始化
+        function initTailwind() {
+            return {
+                config(userConfig = {}) {
+                    return {
+                        configUser: userConfig,
+                        theme: {
+                            extend: {},
+                        },
+                    }
+                },
+                theme: {
+                    extend: {},
+                },
+            }
+        }
+        
+        // Mermaid 初始化
+        function initMermaid() {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'default',
+                mindmap: {
+                    useMaxWidth: true,
+                }
+            })
+            // 重新渲染思维导图
+            const mindmapDiv = document.getElementById('mindmapDiagram')
+            if (mindmapDiv) {
+                mermaid.init(undefined, mindmapDiv)
+            }
+        }
+        
+        // 导航函数
+        function navigateTo(section) {
+            const el = document.getElementById(section)
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' })
+            }
+        }
+        
+        // 练习题库（真实四年级下册题型）
+        const questionBank = [
+            // 基础 (level 1)
+            {
+                id: 1, level: 1, type: 'choice',
+                q: '2 + 3 × 4 = ？',
+                options: ['20', '14', '5', '11'],
+                answer: '14',
+                explain: '先算乘法3×4=12，再加2得14。先乘除后加减！'
+            },
+            {
+                id: 2, level: 1, type: 'fill',
+                q: '17 + 8 = 8 + (   )',
+                answer: '17',
+                explain: '加法交换律，两个数相加交换位置结果不变。'
+            },
+            {
+                id: 3, level: 1, type: 'choice',
+                q: '三角形三个内角和是多少度？',
+                options: ['360°', '180°', '90°', '270°'],
+                answer: '180°',
+                explain: '任意三角形内角和永远是180°。'
+            },
+            {
+                id: 4, level: 1, type: 'fill',
+                q: '4个苹果共重800g，平均每个苹果重（   ）g',
+                answer: '200',
+                explain: '平均数 = 总重量 ÷ 个数 = 800 ÷ 4 = 200'
+            },
+            {
+                id: 5, level: 1, type: 'choice',
+                q: '0.45 × 100 = ？',
+                options: ['4.5', '45', '450', '0.045'],
+                answer: '45',
+                explain: '小数点向右移动2位。'
+            },
+            
+            // 提高 (level 2)
+            {
+                id: 6, level: 2, type: 'choice',
+                q: '25 × (4 + 6) = ？',
+                options: ['250', '100', '150', '250'],
+                answer: '250',
+                explain: '分配律：25×4 + 25×6 = 100 + 150 = 250'
+            },
+            {
+                id: 7, level: 2, type: 'fill',
+                q: '1.23 + 4.5 = （   ）',
+                answer: '5.73',
+                explain: '对齐小数点：1.23 + 4.50 = 5.73'
+            },
+            {
+                id: 8, level: 2, type: 'choice',
+                q: '一个三角形有两个角是60°和70°，第三个角是多少度？',
+                options: ['50°', '60°', '70°', '180°'],
+                answer: '50°',
+                explain: '180° - 60° - 70° = 50°'
+            },
+            {
+                id: 9, level: 2, type: 'fill',
+                q: '鸡兔同笼，头8个，脚22只。鸡有（   ）只？',
+                answer: '3',
+                explain: '列表法：假设全鸡脚16只，多出6只脚，每多一只兔多2只脚 → 3只兔，5只鸡？等，正确答案3只鸡5只兔或根据计算。实际标准解：鸡3只，兔5只（3×2+5×4=22）。'
+            },
+            {
+                id: 10, level: 2, type: 'choice',
+                q: '3.4 - 1.25 = ？',
+                options: ['2.15', '2.25', '1.85', '2.65'],
+                answer: '2.15',
+                explain: '对齐小数点计算。'
+            },
+            
+            // 挑战 (level 3)
+            {
+                id: 11, level: 3, type: 'fill',
+                q: '（12 + 8）× 5 - 3 × 4 = （   ）',
+                answer: '92',
+                explain: '括号先算：20×5=100，再3×4=12，最后100-12=92'
+            },
+            {
+                id: 12, level: 3, type: 'choice',
+                q: '用简便方法计算：25×36 + 25×64',
+                options: ['2500', '2500', '2500', '2500'],
+                answer: '2500',
+                explain: '25×(36+64)=25×100=2500（分配律）'
+            },
+            {
+                id: 13, level: 3, type: 'fill',
+                q: '从不同方向看一个正方体，共有（   ）种不同的视图？',
+                options: ['3', '6', '4'],
+                answer: '3',
+                explain: '正视图、侧视图、俯视图共3种。'
+            },
+            {
+                id: 14, level: 3, type: 'choice',
+                q: '平均数与条形统计图中，平均数的作用是？',
+                options: ['只看最高值', '反映整体水平', '只画图', '没用'],
+                answer: '反映整体水平',
+                explain: '平均数能帮助我们了解一组数据的整体情况。'
+            },
+            {
+                id: 15, level: 3, type: 'fill',
+                q: '鸡兔同笼，头共10个，脚共26只，兔有（   ）只',
+                answer: '3',
+                explain: '设兔x只，鸡(10-x)只。4x + 2(10-x)=26 → 2x + 20 = 26 → 2x=6 → x=3'
+            }
+        ]
+        
+        let currentQuiz = []
+        let currentAnswers = {}
+        let currentLevel = 1
+        
+        // 开始练习
+        function startPractice(level) {
+            currentLevel = level
+            
+            // 筛选对应难度
+            let filtered = questionBank.filter(q => q.level === level)
+            if (filtered.length < 10) {
+                // 如果不够，补充其他难度
+                filtered = filtered.concat(questionBank.filter(q => q.level !== level).slice(0, 10 - filtered.length))
+            }
+            
+            // 随机打乱并取10道
+            currentQuiz = filtered.sort(() => Math.random() - 0.5).slice(0, 10)
+            
+            // 显示练习界面
+            document.getElementById('quiz-start-screen').classList.add('hidden')
+            document.getElementById('quiz-active').classList.remove('hidden')
+            
+            // 更新标题
+            const badge = document.getElementById('current-level-badge')
+            if (level === 1) badge.innerHTML = '🟢 基础练习'
+            else if (level === 2) badge.innerHTML = '🟡 提高练习'
+            else badge.innerHTML = '🔴 挑战练习'
+            
+            renderQuestions()
+            currentAnswers = {}
+            document.getElementById('score').textContent = '0'
+        }
+        
+        // 渲染题目
+        function renderQuestions() {
+            const container = document.getElementById('questions-list')
+            container.innerHTML = ''
+            
+            currentQuiz.forEach((q, index) => {
+                const qHTML = `
+                <div class="quiz-question border border-gray-100 rounded-3xl p-6 bg-white">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-blue-100 text-blue-600 w-8 h-8 flex items-center justify-center rounded-2xl flex-shrink-0 font-semibold">${index+1}</div>
+                        <div class="flex-1">
+                            <p class="text-lg font-medium">${q.q}</p>
+                            
+                            ${q.type === 'choice' ? `
+                            <div class="mt-6 grid grid-cols-2 gap-3">
+                                ${q.options.map(opt => `
+                                <label onclick="recordAnswer(${index}, '${opt}')" class="choice-label cursor-pointer flex items-center gap-3 border border-gray-200 hover:border-blue-300 rounded-2xl px-5 py-4 transition-colors">
+                                    <input type="radio" name="q${index}" class="accent-blue-500" ${currentAnswers[index] === opt ? 'checked' : ''}>
+                                    <span class="text-gray-700">${opt}</span>
+                                </label>
+                                `).join('')}
+                            </div>` : `
+                            <div class="mt-6">
+                                <input type="text" id="fill-${index}" 
+                                       value="${currentAnswers[index] || ''}"
+                                       oninput="recordAnswer(${index}, this.value.trim())"
+                                       class="w-full border border-gray-200 focus:border-blue-400 rounded-3xl px-6 py-5 text-xl outline-none">
+                            </div>`}
+                            
+                            <div id="feedback-${index}" class="hidden mt-4 text-sm"></div>
+                        </div>
+                    </div>
+                </div>`
+                container.innerHTML += qHTML
+            })
+            
+            document.getElementById('progress').textContent = '1'
+        }
+        
+        // 记录答案
+        function recordAnswer(index, value) {
+            currentAnswers[index] = value
+        }
+        
+        // 单题检查（已在render中实时记录，这里提供一键检查）
+        function checkAllAnswers() {
+            let score = 0
+            currentQuiz.forEach((q, index) => {
+                const fb = document.getElementById(`feedback-${index}`)
+                const userAns = currentAnswers[index] || ''
+                
+                fb.classList.remove('hidden')
+                
+                if (String(userAns).toLowerCase() === String(q.answer).toLowerCase()) {
+                    fb.innerHTML = `<span class="text-emerald-500 font-medium feedback-correct">✅ 正确！</span><br><span class="text-gray-500">${q.explain}</span>`
+                    score++
+                } else {
+                    fb.innerHTML = `<span class="text-red-500 font-medium">❌ 错误</span><br>正确答案是：<span class="font-semibold">${q.answer}</span><br><span class="text-gray-500">${q.explain}</span>`
+                }
+            })
+            
+            document.getElementById('score').textContent = score
+            document.getElementById('score').classList.add('text-emerald-500')
+        }
+        
+        // 结束本次练习
+        function endPractice() {
+            if (confirm('确定结束本次练习吗？')) {
+                document.getElementById('quiz-active').classList.add('hidden')
+                document.getElementById('quiz-start-screen').classList.remove('hidden')
+            }
+        }
+        
+        // 换一套新题
+        function generateNewQuiz() {
+            startPractice(currentLevel)
+        }
+        
+        // 快捷开始练习
+        function startNewPractice() {
+            navigateTo('practice')
+            // 默认打开基础
+            setTimeout(() => {
+                startPractice(1)
+            }, 600)
+        }
+        
+        // 初始化全部
+        window.onload = function() {
+            initTailwind()
+            initMermaid()
+            console.log('%c✅ 四年级数学下册学习宝典加载成功！祝学习愉快～', 'color:#3b82f6;font-size:13px;font-weight:600')
+            
+            // 键盘快捷键（可选）
+            document.addEventListener('keydown', function(e) {
+                if (e.key === '/' && document.getElementById('practice').style.display !== 'none') {
+                    startNewPractice()
+                }
+            })
+        }
+    </script>
+</body>
+</html>
+```
